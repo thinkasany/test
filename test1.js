@@ -48,7 +48,7 @@ console.log(avatars);
   await page.setViewport(containerSize);
 
   // 截取整个页面，包括所有图片
-  await page.screenshot({ path: "contributors2.png" });
+  await page.screenshot({ path: "contributors2.png", omitBackground: true });
 
   await browser.close();
   console.log("PNG文件已保存");
