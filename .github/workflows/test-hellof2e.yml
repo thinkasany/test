@@ -16,5 +16,5 @@ jobs:
           png_path: images-hello/contributors.png
           json_path: json-hello/data.json
           branch: 'dev' # 不配置默认master分支
-          committer_name: 'think-hello-bot', # 不配置默认contributors bot
+          committer_name: 'think-hello-bot' # 不配置默认contributors bot
           committer_email: 'thinkasany@163.com' # 不配置默认action@gmail.com
