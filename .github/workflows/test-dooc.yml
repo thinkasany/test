@@ -1,0 +1,20 @@
+name: test-doocs
+
+on:
+  schedule:
+    - cron: "0 0 * * *"
+  workflow_dispatch:
+
+jobs:
+  checkin:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: thinkasany/organize-contributors@master
+        with:
+          orgName: 'doocs'
+          github_token: ${{ secrets.GH_TOKEN }}
+          png_path: images-doocs/contributors.png
+          json_path: json-doocs/data.json
+          branch: 'master' # 不配置默认master分支
+          committer_name: 'think-bot', # 不配置默认contributors bot
+          committer_email: 'thinkasany@163.com' # 不配置默认action@gmail.com

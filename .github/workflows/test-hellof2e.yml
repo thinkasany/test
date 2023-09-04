@@ -1,0 +1,20 @@
+name: test-hellof2e
+
+on:
+  schedule:
+    - cron: "0 0 * * *"
+  workflow_dispatch:
+
+jobs:
+  checkin:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: thinkasany/organize-contributors@master
+        with:
+          orgName: 'hellof2e'
+          github_token: ${{ secrets.GH_TOKEN }}
+          png_path: images-hello/contributors.png
+          json_path: json-hello/data.json
+          branch: 'dev' # 不配置默认master分支
+          committer_name: 'think-hello-bot', # 不配置默认contributors bot
+          committer_email: 'thinkasany@163.com' # 不配置默认action@gmail.com

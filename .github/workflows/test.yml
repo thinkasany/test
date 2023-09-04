@@ -1,4 +1,4 @@
-name: test
+name: test-dev 开发专用
 
 on:
   schedule:
@@ -15,3 +15,4 @@ jobs:
           github_token: ${{ secrets.GH_TOKEN }}
           png_path: images/contributors.png
           json_path: json/data.json
+          branch: 'dev'
