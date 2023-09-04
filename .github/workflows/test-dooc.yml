@@ -11,7 +11,7 @@ jobs:
     steps:
       - uses: thinkasany/organize-contributors@master
         with:
-          orgName: 'doocs'
+          organize_name: 'doocs'
           github_token: ${{ secrets.GH_TOKEN }}
           png_path: images-doocs/contributors.png
           json_path: json-doocs/data.json

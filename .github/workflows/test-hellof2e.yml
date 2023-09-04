@@ -11,7 +11,7 @@ jobs:
     steps:
       - uses: thinkasany/organize-contributors@master
         with:
-          orgName: 'hellof2e'
+          organize_name: 'hellof2e'
           github_token: ${{ secrets.GH_TOKEN }}
           png_path: images-hello/contributors.png
           json_path: json-hello/data.json
