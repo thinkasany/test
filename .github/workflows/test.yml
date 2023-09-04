@@ -16,3 +16,6 @@ jobs:
           png_path: images/contributors.png
           json_path: json/data.json
           branch: 'dev'
+          limit_number: '10'
+          excludes_list: 'yanglbme'
+
