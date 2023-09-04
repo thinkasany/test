@@ -1,4 +1,4 @@
-name: test-dev 开发专用
+name: test-dev
 
 on:
   schedule:
