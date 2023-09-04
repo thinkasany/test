@@ -18,3 +18,4 @@ jobs:
           branch: 'dev' # 不配置默认master分支
           committer_name: 'think-hello-bot' # 不配置默认contributors bot
           committer_email: 'thinkasany@163.com' # 不配置默认action@gmail.com
+          commit_message: 'chore: 自定义的message' # 不配置默认chore: update contributors [skip ci]
