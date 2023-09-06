@@ -1,24 +1,50 @@
 const axios = require("axios");
 const fs = require("fs");
-const repos = [
-  "advanced-java",
-  "leetcode",
-    "source-code-hunter",
-    "jvm",
-    "coding-interview",
-    "md",
-    "technical-books"
-]; // 仓库列表
-
-// const repos = ["leetcode"];
 
 const asyncFunc = async () => {
+  // const apiUrl = `https://api.github.com/orgs/${`hellof2e`}/repos`;
+  // const allRepos = await axios.get(apiUrl);
+  // const repos2 = allRepos.data.map(i => i.full_name);
+  // console.log(repos2);
+  const repos = [];
+  const orgName = "hellof2e";
+  const apiUrl2 = `https://api.github.com/orgs/${orgName}/repos`;
+  const response = await axios.get(apiUrl2);
+  if (response.status === 200) {
+    const repositories = response.data;
+    repositories.forEach(repo => {
+      if (!repo.fork) {
+        repos.push(repo.full_name);
+      }
+    });
+  } else {
+    console.error(`获取repos数据失败。状态码: ${response.status}`);
+  }
+  console.log("res", repos);
+  axios
+    .get(apiUrl2)
+    .then(response => {
+      if (response.status === 200) {
+        const repositories = response.data;
+        repositories.forEach(repo => {
+          console.log(`仓库名称: ${repo.name}`);
+          console.log(`是否是 Fork: ${repo.fork}`);
+          console.log();
+        });
+      } else {
+        console.error(`获取数据失败。状态码: ${response.status}`);
+      }
+      return;
+    })
+    .catch(error => {
+      console.error("发生错误:", error);
+    });
   const mergedContributors = {}; // 合并后的贡献者数据
   for (const repo of repos) {
     try {
       // 发送请求获取贡献者数据
       const response = await axios.get(
-        `https://api.github.com/repos/doocs/${repo}/contributors`,
+        `https://api.github.com/repos/${repo}/contributors`,
         {
           params: {
             per_page: 100 // 每页返回 100 条数据
@@ -63,6 +89,7 @@ const asyncFunc = async () => {
 
 (async () => {
   const contributors = await asyncFunc();
+  // return
   console.log(contributors, contributors.length);
   const jsonStr = JSON.stringify(contributors, null, 2);
 

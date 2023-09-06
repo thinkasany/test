@@ -1,5 +1,5 @@
 const puppeteer = require("puppeteer");
-const contributors = require("./data2.json");
+const contributors = require("./data1.json");
 // 头像URL数组
 const avatars = contributors.map(i => i.avatar);
 console.log(avatars);
@@ -14,14 +14,17 @@ console.log(avatars);
         margin: 1px 1px;
         border-radius: 50%;
     }
+    #container {
+      padding-bottom: 5px;
+    }
 `;
   // 创建一个HTML字符串，其中包含多个图片
   // const htmlContent = avatars.map((avatarUrl) => `<img src="${avatarUrl}" class="custom" />`).join('');
   const htmlContent = `
     <style>${customStyle}</style>
-    ${avatars
-      .map(avatarUrl => `<img src="${avatarUrl}" class="custom" />`)
-      .join("")}
+   <div id="container">  ${avatars
+    .map(avatarUrl => `<img src="${avatarUrl}" class="custom" />`)
+    .join("")} </div>
 `;
 
   // 设置页面内容
@@ -33,13 +36,13 @@ console.log(avatars);
   // 修改容器的尺寸和样式
   await page.evaluate(() => {
     const container = document.body; // 或者选择包含所有图片的父元素
-    container.style.width = "890px";
+    container.style.width = "880px";
     // container.style.margin = "0 auto"; // 可以居中容器
   });
 
   // 获取包含所有图片的容器的尺寸
   const containerSize = await page.evaluate(() => {
-    const container = document.body;
+    const container = document.getElementById("container");
     const rect = container.getBoundingClientRect();
     return { width: rect.width, height: rect.height + 10 };
   });
@@ -48,7 +51,7 @@ console.log(avatars);
   await page.setViewport(containerSize);
 
   // 截取整个页面，包括所有图片
-  await page.screenshot({ path: "contributors2.png", omitBackground: true });
+  await page.screenshot({ path: "contributors.png", omitBackground: true });
 
   await browser.close();
   console.log("PNG文件已保存");
