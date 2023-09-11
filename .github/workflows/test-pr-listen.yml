@@ -1,4 +1,4 @@
-name: test-pr-listen
+name: test-pr-listen-dev
 
 on:
   pull_request:
@@ -15,7 +15,10 @@ jobs:
         run: echo "PR_NUMBER=${{ github.event.pull_request.number }}" >> $GITHUB_ENV
 
       - name: Run pr-label Action
-        uses: thinkasany/pr-label-action@master
+        uses: thinkasany/pr-label-action@dev
         with:
           github_token: ${{ secrets.GH_TOKEN }}
           pr_number: ${{ env.PR_NUMBER }}
+          organize_name: 'doocs'
+          team_name: 'leetcode-algorithm'
+
