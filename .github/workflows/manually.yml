@@ -1,0 +1,20 @@
+name: Trigger manually
+
+on: workflow_dispatch
+
+jobs:
+  trigger_manually:
+    permissions:
+      contents: read
+      actions: write
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        
+      - name: Trigger manually
+        run: |
+          git config --local user.name 'github-actions[bot]'
+          git config --local user.email 'github-actions[bot]@users.noreply.github.com'
+          git commit --allow-empty -m "Trigger manually"
+          git push --force
