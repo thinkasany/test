@@ -25,7 +25,10 @@ jobs:
       - name: Run prettier
         run: |
           set -e  # 使脚本在错误发生时退出
+          echo "hello world"
           changed_files=$(git diff --name-only "${{ github.event.pull_request.base.sha }}" | grep -E '\.md$|\.js$|\.ts$|\.php|\.sql$')
+          echo "$changed_files"
+          echo "hello world"
           changed_files=${changed_files:-""}
           if [ -n "$changed_files" ]; then
             echo "Running prettier on the changed files"
