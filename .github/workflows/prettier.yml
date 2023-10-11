@@ -24,8 +24,6 @@ jobs:
           node-version: 18
       - name: Install Dependencies
         run: npm install
-      - name: log
-        run: console.log($OLD_SHA, $CURRENT_SHA)
       - name: Run prettier
         run: git diff --name-only  ${{ github.event.pull_request.base.sha }} | grep -E '\.js$|\.ts$|\.sql$' | xargs npx prettier --write
       - name: Commit changes
