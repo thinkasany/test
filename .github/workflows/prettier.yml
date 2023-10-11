@@ -25,10 +25,10 @@ jobs:
       - name: Install Dependencies
         run: npm install
       - name: Run prettier
-        run: npx prettier --write $(git diff --name-only origin ${{ github.event.pull_request.base.sha }})
+        run: npx prettier --write $(git diff --name-only ${{ github.event.before }} ${{ github.event.pull_request.base.sha }})
       - name: Commit changes
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
           commit_message: "style: format code and docs with prettier"
-          commit_user_name: idoocs
-          commit_user_email: doocs-bot@outlook.com
+          commit_user_name: thinkasany
+          commit_user_email: 480968828@qq.com
