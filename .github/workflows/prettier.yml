@@ -33,6 +33,7 @@ jobs:
             echo "No matching files to run prettier on."
             exit 0
           fi
+          set +e 
       - name: Commit changes
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
