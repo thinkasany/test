@@ -31,7 +31,7 @@ jobs:
           echo "hello world"
           if [ -n "$changed_files" ]; then
             echo "Running prettier on the changed files"
-            echo "$changed_files" | xargs npx prettier --write
+            echo "$changed_files" | xargs -d '\n' npx prettier --write
           else
             echo "No matching files to run prettier on."
           fi
