@@ -30,7 +30,7 @@ jobs:
           echo "$changed_files" | xargs npx prettier --write
           else
             echo "No matching files to run prettier on."
-            return 0
+            return
           fi
       - name: Commit changes
         uses: stefanzweifel/git-auto-commit-action@v5
