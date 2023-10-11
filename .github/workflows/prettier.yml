@@ -28,11 +28,10 @@ jobs:
           changed_files=$(git diff --name-only "${{ github.event.pull_request.base.sha }}" | grep -E '\.md$|\.js$|\.ts$|\.php|\.sql$')
           changed_files=${changed_files:-""}
           if [ -n "$changed_files" ]; then
-          echo "Running prettier on the changed files"
-          echo "$changed_files" | xargs npx prettier --write
+            echo "Running prettier on the changed files"
+            echo "$changed_files" | xargs npx prettier --write
           else
             echo "No matching files to run prettier on."
-            exit 0
           fi
           set +e 
       - name: Commit changes
