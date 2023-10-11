@@ -23,7 +23,17 @@ jobs:
       - name: Install Dependencies
         run: npm install
       - name: Run prettier
-        run: git diff --name-only  ${{ github.event.pull_request.base.sha }} | grep -E '\.md$|\.js$|\.ts$|\.php|\.sql$' | xargs npx prettier --write
+        run: |
+          set -e  # 使脚本在错误发生时退出
+          changed_files=$(git diff --name-only "${{ github.event.pull_request.base.sha }}" | grep -E '\.md$|\.js$|\.ts$|\.php|\.sql$')
+          if [ -n "$changed_files" ]; then
+          echo "Running prettier on the changed files"
+          echo "$changed_files" | xargs npx prettier --write
+          else
+            echo "No matching files to run prettier on."
+            exit 0
+          fi
+          set +e 
       - name: Commit changes
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
