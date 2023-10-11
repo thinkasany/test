@@ -25,7 +25,7 @@ jobs:
       - name: Install Dependencies
         run: npm install
       - name: Run prettier
-        run: npx prettier --write $(git diff --name-only ${{ github.event.before }} ${{ github.event.pull_request.base.sha }})
+        run: npx prettier --write $(git diff --name-only origin ${{ github.event.pull_request.base.sha }})
       - name: Commit changes
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
