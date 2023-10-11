@@ -48,6 +48,7 @@ Result table:
 +-------------+-------+---------------+-------------+
 Hercy 有两个需要向他汇报的员工, 他们是 Alice and Bob. 他们的平均年龄是 (41+36)/2 = 38.5, 四舍五入的结果是 39.
 </pre>
+
 ## 解法
 
 <!-- 这里可写通用的实现逻辑 -->
@@ -55,6 +56,7 @@ Hercy 有两个需要向他汇报的员工, 他们是 Alice and Bob. 他们的�
 <!-- tabs:start -->
 
 ### **SQL**
+
 ```sql
 # Write your MySQL query statement below
 SELECT e2.employee_id, e2.name, count(1) AS reports_count, round(avg(e1.age)) AS average_age
@@ -64,4 +66,5 @@ FROM
 GROUP BY e2.employee_id
 ORDER BY e2.employee_id;
 ```
+
 <!-- tabs:end -->
