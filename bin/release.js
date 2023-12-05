@@ -2,6 +2,7 @@
     const fs = require('fs');
     const path = require('path');
     const packageJson = require('../package.json');
+    const child_process = require('child_process');
       // 自动更新版本
   // version可以传递如 6.1.1 | patch | minor | major
   const execCommand = arr => (Array.isArray(arr) ? arr : [arr]).forEach(c => {
