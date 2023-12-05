@@ -1,6 +1,6 @@
 {
-  "name": "@thinkerwing/test",
-  "version": "1.0.6",
+  "name": "think-test",
+  "version": "1.0.7",
   "description": "",
   "main": "index.js",
   "scripts": {
