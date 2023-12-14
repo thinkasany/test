@@ -20,7 +20,8 @@ jobs:
           
           # Use Node.js to run JavaScript code
           node -e "
-            const octokit = require('@octokit/rest')();
+            const { Octokit } = require('@octokit/rest');
+            const octokit = new Octokit();
             octokit.authenticate({
               type: 'token',
               token: '$GH_TOKEN',
