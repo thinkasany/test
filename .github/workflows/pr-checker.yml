@@ -24,7 +24,7 @@ jobs:
             const octokit = new Octokit({
               auth: process.env.GH_TOKEN,
             });
-          
+          const checkTeamMembership = async () => {
              try {
               const response = await octokit.teams.listMembersInOrg({
                 org: process.env.GITHUB_REPOSITORY_OWNER,
@@ -45,6 +45,8 @@ jobs:
               echo "Error checking team membership: $error";
               exit 1;
             }
+            }
+            checkTeamMembership();
           "
 
       - name: Pull request
