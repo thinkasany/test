@@ -13,7 +13,7 @@ jobs:
         run: |
           PR_OPENER="${{ github.actor }}"
           TEAM_ID=3060083
-          GH_TOKEN="${{ secrets.GH_TOKEN }}"
+          GH_TOKEN="${{ secrets.APITOKEN }}"
 
           # Install required Node.js module
           npm install @octokit/rest
