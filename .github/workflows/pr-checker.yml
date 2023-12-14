@@ -39,10 +39,11 @@ jobs:
                 console.log(`The user ${PR_OPENER} is a member of the team. Proceeding with the workflow.`);
               } else {
                console.log(`The user ${PR_OPENER} is not a member of the team. Terminating the workflow.`);
+               process.exit(1);
               }
             } catch (error) {
               console.log(error)
-              exit 1;
+              process.exit(1);
             }
             }
             checkTeamMembership();
