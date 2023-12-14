@@ -54,6 +54,14 @@ jobs:
             }
             checkTeamMembership();
           "
+      - name: log
+        if: ${{ env.STOP_WORKFLOW != 'true' }}
+        run: |
+          # Use the output value in your script
+          echo "Stop workflow value: ${{ needs.check_team.outputs.stop_workflow }}"
+          echo "${{github.repository}} ${{github}}"
+          ehco "repository_owner ${{github.repository_owner}}"
+
       - name: Pull request
         uses: actions-cool/maintain-one-comment@v3
         with:
