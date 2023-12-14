@@ -26,7 +26,6 @@ jobs:
             });
           
              try {
-              // 获取团队成员列表
               const response = await octokit.teams.listMembersInOrg({
                 org: process.env.GITHUB_REPOSITORY_OWNER,
                 team_slug: 'leetcode-algorithm'
@@ -34,7 +33,6 @@ jobs:
 
               const teamMemberships = response.data;
 
-              // 检查提交者是否在团队中
               const isTeamMember = teamMemberships.some(member => member.login === PR_OPENER);
 
               if (isTeamMember) {
