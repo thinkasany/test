@@ -22,7 +22,7 @@ jobs:
           node -e "
             const { Octokit } = require('@octokit/rest');
             const octokit = new Octokit({
-              auth: `${GH_TOKEN}`
+              auth: `${GH_TOKEN}`,
             });
           const checkTeamMembership = async () => {
              try {
