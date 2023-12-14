@@ -32,10 +32,13 @@ jobs:
             const PR_OPENER = process.env.PR_OPENER
           const checkTeamMembership = async () => {
              try {
-              const response = await octokit.teams.listMembersInOrg({
+                const response = await octokit.request('GET /orgs/{org}/teams/{team_slug}/members', {
                 org: 'doocs',
                 team_slug: 'leetcode-algorithm',
-              });
+                  headers: {
+                    'X-GitHub-Api-Version': '2022-11-28'
+                  }
+                })
 
               const teamMemberships = response.data;
 
