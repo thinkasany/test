@@ -29,10 +29,10 @@ jobs:
                     const teamMemberships = response.data;
                     const isTeamMember = teamMemberships.some(member => member.login === PR_OPENER);
                     if (isTeamMember) {
-                        console.log(`The user ${PR_OPENER} is a member of the team. Proceeding with the workflow.`);
+                        console.log(`The user ${PR_OPENER} is a member of the team. Terminating with the workflow.`);
                         console.log(`::set-output name=stop_workflow::true`);
                     } else {
-                      console.log(`The user ${PR_OPENER} is not a member of the team. Terminating the workflow.`);
+                      console.log(`The user ${PR_OPENER} is not a member of the team. Proceeding the workflow.`);
                     }
                   } catch (error) {
                     console.log(PR_OPENER, process.env.TOKEN)
@@ -40,6 +40,11 @@ jobs:
                   }
                   }
                   checkTeamMembership();
+      - name: log
+        if: ${{ needs.check_team.outputs.stop_workflow != 'true' }}
+        run: |
+          # Use the output value in your script
+          echo "Stop workflow value: ${{ needs.check_team.outputs.stop_workflow }}"
       - name: Pull request
         if: ${{ needs.check_team.outputs.stop_workflow != 'true' }}
         uses: actions-cool/maintain-one-comment@v3
