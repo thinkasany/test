@@ -20,15 +20,19 @@ jobs:
           # Use Node.js to run JavaScript code
           node -e "
             const { Octokit } = require('@octokit/rest');
+            const fetch = require('node-fetch');
             const octokit = new Octokit({
               auth: process.env.TOKEN,
+              request: {
+                fetch
+              },
             });
             const PR_OPENER = process.env.PR_OPENER
           const checkTeamMembership = async () => {
              try {
               const response = await octokit.teams.listMembersInOrg({
                 org: 'doocs',
-                team_slug: 'leetcode-algorithm'
+                team_slug: 'leetcode-algorithm',
               });
 
               const teamMemberships = response.data;
