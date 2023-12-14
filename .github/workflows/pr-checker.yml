@@ -16,6 +16,7 @@ jobs:
         run: |
           # Install required Node.js module
           npm install @octokit/rest
+          npm install node-fetch
           
           # Use Node.js to run JavaScript code
           node -e "
