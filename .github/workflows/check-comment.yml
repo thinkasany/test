@@ -14,20 +14,14 @@ jobs:
           TOKEN: ${{ secrets.API_TOKEN }}
           PR_OPENER: ${{ github.actor }}
         run: |
-          curl -H "Authorization: token $secrets.API_TOKEN" https://api.github.com/orgs/doocs/teams/leetcode-algorithm/members
           # Install required Node.js module
           npm install @octokit/rest
-          npm install node-fetch@2
           
           # Use Node.js to run JavaScript code
           node -e "
             const { Octokit } = require('@octokit/rest');
-            const fetch = require('node-fetch');
             const octokit = new Octokit({
               auth: process.env.TOKEN,
-              request: {
-                fetch
-              },
             });
             const PR_OPENER = process.env.PR_OPENER
           const checkTeamMembership = async () => {
@@ -43,7 +37,7 @@ jobs:
               const isTeamMember = teamMemberships.some(member => member.login === PR_OPENER);
               if (isTeamMember) {
                 console.log(`The user ${PR_OPENER} is a member of the team. Proceeding with the workflow.`);
-                console.log(`::set-output name=terminate_workflow::true`);
+                process.stdout.write(`::set-output name=stop_workflow::true\n`);
               } else {
                console.log(`The user ${PR_OPENER} is not a member of the team. Terminating the workflow.`);
               }
@@ -55,7 +49,7 @@ jobs:
             checkTeamMembership();
           "
       - name: Pull request
-        if: ${{ steps.check_team.outputs.terminate_workflow != 'true' }}
+        if: ${{ steps.check_team.outputs.stop_workflow != 'true' }}
         uses: actions-cool/maintain-one-comment@v3
         with:
           token: ${{ secrets.GH_TOKEN }}
