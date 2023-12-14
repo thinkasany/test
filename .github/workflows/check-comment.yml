@@ -12,6 +12,7 @@ jobs:
         id: check_team
         env:
           PR_OPENER: ${{ github.actor }}
+          stop_workflow: false
         uses: actions/github-script@v5
         with:
             github-token: ${{ secrets.API_TOKEN }}
