@@ -36,13 +36,12 @@ jobs:
               const isTeamMember = teamMemberships.some(member => member.login === PR_OPENER);
 
               if (isTeamMember) {
-              echo "The user $PR_OPENER is a member of the team. Proceeding with the workflow.";
+                console.log("The user $PR_OPENER is a member of the team. Proceeding with the workflow.");
               } else {
-                echo "The user $PR_OPENER is not a member of the team. Terminating the workflow.";
-                exit 78;
+               console.log("The user $PR_OPENER is not a member of the team. Terminating the workflow.");
               }
             } catch (error) {
-              echo "Error checking team membership: $error";
+              console.log(error)
               exit 1;
             }
             }
