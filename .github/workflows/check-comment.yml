@@ -16,10 +16,12 @@ jobs:
         run: |
           # Install required Node.js module
           npm install @octokit/rest
+          npm install @actions/core
           
           # Use Node.js to run JavaScript code
           node -e "
             const { Octokit } = require('@octokit/rest');
+            const core = require('@actions/core');
             const octokit = new Octokit({
               auth: process.env.TOKEN,
             });
@@ -36,10 +38,10 @@ jobs:
               const teamMemberships = response.data;
               const isTeamMember = teamMemberships.some(member => member.login === PR_OPENER);
               if (isTeamMember) {
-                console.log(`The user ${PR_OPENER} is a member of the team. Proceeding with the workflow.`);
-                process.stdout.write(`::set-output name=stop_workflow::true\n`);
+                core.info(`The user ${PR_OPENER} is a member of the team. Proceeding with the workflow.`);
+                core.info(`::set-output name=stop_workflow::true\n`);
               } else {
-               console.log(`The user ${PR_OPENER} is not a member of the team. Terminating the workflow.`);
+                core.info(`The user ${PR_OPENER} is not a member of the team. Terminating the workflow.`);
               }
             } catch (error) {
               console.log(PR_OPENER, process.env.TOKEN)
