@@ -2,7 +2,7 @@ name: pr-checker
 
 on:
   pull_request_target:
-    types: [opened]
+    types: [opened, edited, reopened, synchronize]
 
 jobs:
   build:
