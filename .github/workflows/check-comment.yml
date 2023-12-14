@@ -18,7 +18,8 @@ jobs:
             github-token: ${{ secrets.API_TOKEN }}
             script: |
                 const fs = require('fs');
-                const PR_OPENER = process.env.PR_OPENER
+                const PR_OPENER = process.env.PR_OPENER;
+                const stop_workflow = process.env.stop_workflow;
                 const checkTeamMembership = async () => {
                   try {
                       const response = await github.request('GET /orgs/{org}/teams/{team_slug}/members', {
