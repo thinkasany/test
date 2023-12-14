@@ -10,10 +10,11 @@ jobs:
     steps:
       - name: Check Team Membership
         id: check_team
+        env:
+          TOKEN: ${{ secrets.APITOKEN }}
         run: |
           PR_OPENER="${{ github.actor }}"
           TEAM_ID=3060083
-          GH_TOKEN="${{ secrets.APITOKEN }}"
 
           # Install required Node.js module
           npm install @octokit/rest
@@ -22,7 +23,7 @@ jobs:
           node -e "
             const { Octokit } = require('@octokit/rest');
             const octokit = new Octokit({
-              auth: `${GH_TOKEN}`,
+              auth: process.env.TOKEN,
             });
           const checkTeamMembership = async () => {
              try {
