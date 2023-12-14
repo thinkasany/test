@@ -11,7 +11,7 @@ jobs:
       - name: Check Team Membership
         id: check_team
         env:
-          TOKEN: ${{ secrets.API_TOKEN }},
+          TOKEN: ${{ secrets.API_TOKEN }}
           PR_OPENER: ${{ github.actor }}
         run: |
           curl -H "Authorization: token $secrets.API_TOKEN" https://api.github.com/orgs/doocs/teams/leetcode-algorithm/members
