@@ -11,11 +11,9 @@ jobs:
       - name: Check Team Membership
         id: check_team
         env:
-          TOKEN: ${{ secrets.APITOKEN }}
+          TOKEN: ${{ secrets.APITOKEN }},
+          PR_OPENER: ${{ github.actor }}
         run: |
-          PR_OPENER="${{ github.actor }}"
-          TEAM_ID=3060083
-
           # Install required Node.js module
           npm install @octokit/rest
           
@@ -25,6 +23,7 @@ jobs:
             const octokit = new Octokit({
               auth: process.env.TOKEN,
             });
+            const PR_OPENER = process.env.PR_OPENER
           const checkTeamMembership = async () => {
              try {
               const response = await octokit.teams.listMembersInOrg({
