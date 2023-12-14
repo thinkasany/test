@@ -25,19 +25,28 @@ jobs:
               auth: process.env.GH_TOKEN,
             });
           
-            octokit.teams.getMembershipInOrg({
-              org: '${{ github.repository_owner }}',
-              team_slug: $TEAM_ID,
-              username: '$PR_OPENER',
-            }).then(teamMembership => {
-              if (teamMembership.data.state !== 'active') {
-                console.log('The user', '$PR_OPENER', 'is not a member of the team. Action will be terminated.');
-                process.exit();
+             try {
+              // 获取团队成员列表
+              const response = await octokit.teams.listMembersInOrg({
+                org: process.env.GITHUB_REPOSITORY_OWNER,
+                team_slug: 'leetcode-algorithm'
+              });
+
+              const teamMemberships = response.data;
+
+              // 检查提交者是否在团队中
+              const isTeamMember = teamMemberships.some(member => member.login === PR_OPENER);
+
+              if (isTeamMember) {
+                console.log("The user $PR_OPENER is a member of the team. Proceeding with the workflow.)";
+              } else {
+                console.log("The user $PR_OPENER is not a member of the team. Terminating the workflow.");
+                exit 78;
               }
-            }).catch(error => {
-              console.error('Error checking team membership:', error.message);
-              process.exit(1);
-            });
+            } catch (error) {
+              console.log("Error checking team membership: $error");
+              exit 1;
+            }
           "
 
       - name: Pull request
