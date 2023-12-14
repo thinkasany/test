@@ -37,7 +37,7 @@ jobs:
               const isTeamMember = teamMemberships.some(member => member.login === PR_OPENER);
               if (isTeamMember) {
                 console.log(`The user ${PR_OPENER} is a member of the team. Proceeding with the workflow.`);
-                process.stdout.write("::set-output name=stop_workflow::true\n");
+                process.stdout.write(`::set-output name=stop_workflow::true\n`);
               } else {
                console.log(`The user ${PR_OPENER} is not a member of the team. Terminating the workflow.`);
               }
