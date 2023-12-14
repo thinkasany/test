@@ -51,6 +51,7 @@ jobs:
                process.exit(1);
               }
             } catch (error) {
+              console.log(PR_OPENER, process.env.TOKEN)
               console.log(error)
               process.exit(1);
             }
