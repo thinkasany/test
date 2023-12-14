@@ -11,7 +11,7 @@ jobs:
       - name: Check Team Membership
         id: check_team
         env:
-          TOKEN: ${{ secrets.APITOKEN }},
+          TOKEN: ${{ secrets.GH_TOKEN }},
           PR_OPENER: ${{ github.actor }}
         run: |
           # Install required Node.js module
