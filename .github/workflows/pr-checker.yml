@@ -27,7 +27,7 @@ jobs:
           const checkTeamMembership = async () => {
              try {
               const response = await octokit.teams.listMembersInOrg({
-                org: process.env.GITHUB_REPOSITORY_OWNER,
+                org: 'doocs',
                 team_slug: 'leetcode-algorithm'
               });
 
