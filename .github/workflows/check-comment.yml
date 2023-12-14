@@ -11,18 +11,15 @@ jobs:
       - name: Check Team Membership
         id: check_team
         env:
-          TOKEN: ${{ secrets.API_TOKEN }}
           PR_OPENER: ${{ github.actor }}
         uses: actions/github-script@v5
         with:
+            github-token: ${{ secrets.API_TOKEN }}
             script: |
-                const octokit = new github({
-                  auth: process.env.TOKEN,
-                });
                 const PR_OPENER = process.env.PR_OPENER
                 const checkTeamMembership = async () => {
                   try {
-                      const response = await octokit.request('GET /orgs/{org}/teams/{team_slug}/members', {
+                      const response = await github.request('GET /orgs/{org}/teams/{team_slug}/members', {
                       org: 'doocs',
                       team_slug: 'leetcode-algorithm',
                         headers: {
