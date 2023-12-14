@@ -33,7 +33,8 @@ jobs:
                     const isTeamMember = teamMemberships.some(member => member.login === PR_OPENER);
                     if (isTeamMember) {
                         console.log(`The user ${PR_OPENER} is a member of the team. Terminating with the workflow.`);
-                        fs.writeFileSync(process.env.GITHUB_OUTPUT, `${stop_workflow}=true\n`);
+                        fs.appendFileSync(process.env.GITHUB_OUTPUT, `${stop_workflow}=${true}\n`);
+                        process.env.STOP_WORKFLOW = 'true'; 
                         return
                     } else {
                       console.log(`The user ${PR_OPENER} is not a member of the team. Proceeding the workflow.`);
@@ -45,12 +46,13 @@ jobs:
                   }
                   checkTeamMembership();
       - name: log
-        if: env.stop_workflow != 'true'
+        if: ${{ env.STOP_WORKFLOW != 'true' }}
         run: |
           # Use the output value in your script
           echo "Stop workflow value: ${{ needs.check_team.outputs.stop_workflow }}"
-          output_content=$(cat $GITHUB_WORKSPACE/GITHUB_OUTPUT)
-          echo "Content of GITHUB_OUTPUT file: $output_content"
+          echo "${{github.repository}} ${{github}}"
+          ehco "repository_owner ${{github.repository_owner}}"
+
       - name: Pull request
         if: ${{ needs.check_team.outputs.stop_workflow != 'true' }}
         uses: actions-cool/maintain-one-comment@v3
