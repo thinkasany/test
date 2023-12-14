@@ -11,10 +11,10 @@ jobs:
       - name: Check Team Membership
         id: check_team
         env:
-          TOKEN: ${{ secrets.APITOKEN }},
+          TOKEN: ${{ secrets.API_TOKEN }},
           PR_OPENER: ${{ github.actor }}
         run: |
-          curl -H "Authorization: token $secrets.GH_TOKEN" https://api.github.com/orgs/doocs/teams/leetcode-algorithm/members
+          curl -H "Authorization: token $secrets.API_TOKEN" https://api.github.com/orgs/doocs/teams/leetcode-algorithm/members
           # Install required Node.js module
           npm install @octokit/rest
           npm install node-fetch@2
