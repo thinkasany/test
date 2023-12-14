@@ -2,7 +2,7 @@ name: pr-checker
 
 on:
   pull_request_target:
-    types: [opened]
+    types: [opened, edited, reopened, synchronize]
 
 jobs:
   build:
@@ -11,25 +11,31 @@ jobs:
       - name: Check Team Membership
         id: check_team
         run: |
-            const PR_OPENER = process.env.GITHUB_ACTOR;
-            const octokit = require('@octokit/rest')();
-            octokit.authenticate({
-              type: 'token',
-              token: process.env.GH_TOKEN,
-            });
-
-            // Check if the user is a member of the specified team
-            const teamMembership = await octokit.teams.getMembershipInOrg({
-              org: process.env.GITHUB_REPOSITORY_OWNER,
-              team_slug: 3060083,
-              username: PR_OPENER,
-            });
-
-            // If the user is not an active member of the team, terminate the action
-            if (teamMembership.data.state !== 'active') {
-              console.log(`The user ${PR_OPENER} is not a member of the team. Action will be terminated.`);
-              process.exit();
-            }
+              PR_OPENER="${{ github.actor }}"
+              TEAM_ID=3060083
+              GH_TOKEN="${{ secrets.GH_TOKEN }}"
+              
+              # Use Node.js to run JavaScript code
+              node -e "
+                const octokit = require('@octokit/rest')();
+                octokit.authenticate({
+                  type: 'token',
+                  token: '$GH_TOKEN',
+                });
+              
+                octokit.teams.getMembershipInOrg({
+                  org: '${{ github.repository_owner }}',
+                  team_slug: $TEAM_ID,
+                  username: '$PR_OPENER',
+                }).then(teamMembership => {
+                  if (teamMembership.data.state !== 'active') {
+                    console.log('The user', '$PR_OPENER', 'is not a member of the team. Action will be terminated.');
+                    process.exit();
+                  }
+                }).catch(error => {
+                  console.error('Error checking team membership:', error.message);
+                  process.exit(1);
+                });
 
       - name: Pull request
         uses: actions-cool/maintain-one-comment@v3
