@@ -13,43 +13,36 @@ jobs:
         env:
           TOKEN: ${{ secrets.API_TOKEN }}
           PR_OPENER: ${{ github.actor }}
-        run: |
-          # Install required Node.js module
-          npm install @octokit/rest
-          npm install @actions/core
-          
-          # Use Node.js to run JavaScript code
-          node -e "
-            const { Octokit } = require('@octokit/rest');
-            const core = require('@actions/core');
-            const octokit = new Octokit({
-              auth: process.env.TOKEN,
-            });
-            const PR_OPENER = process.env.PR_OPENER
-          const checkTeamMembership = async () => {
-             try {
-                const response = await octokit.request('GET /orgs/{org}/teams/{team_slug}/members', {
-                org: 'doocs',
-                team_slug: 'leetcode-algorithm',
-                  headers: {
-                    'X-GitHub-Api-Version': '2022-11-28'
+        uses: actions/github-script@v5
+        with:
+            script: |
+                const octokit = new github({
+                  auth: process.env.TOKEN,
+                });
+                const PR_OPENER = process.env.PR_OPENER
+                const checkTeamMembership = async () => {
+                  try {
+                      const response = await octokit.request('GET /orgs/{org}/teams/{team_slug}/members', {
+                      org: 'doocs',
+                      team_slug: 'leetcode-algorithm',
+                        headers: {
+                          'X-GitHub-Api-Version': '2022-11-28'
+                        }
+                      })
+                    const teamMemberships = response.data;
+                    const isTeamMember = teamMemberships.some(member => member.login === PR_OPENER);
+                    if (isTeamMember) {
+                        console.log(`The user ${PR_OPENER} is a member of the team. Proceeding with the workflow.`);
+                        console.log(`::set-output name=stop_workflow::true`);
+                    } else {
+                      console.log(`The user ${PR_OPENER} is not a member of the team. Terminating the workflow.`);
+                    }
+                  } catch (error) {
+                    console.log(PR_OPENER, process.env.TOKEN)
+                    console.log(error)
                   }
-                })
-              const teamMemberships = response.data;
-              const isTeamMember = teamMemberships.some(member => member.login === PR_OPENER);
-              if (isTeamMember) {
-                core.info(`The user ${PR_OPENER} is a member of the team. Proceeding with the workflow.`);
-                core.info(`::set-output name=stop_workflow::true\n`);
-              } else {
-                core.info(`The user ${PR_OPENER} is not a member of the team. Terminating the workflow.`);
-              }
-            } catch (error) {
-              console.log(PR_OPENER, process.env.TOKEN)
-              console.log(error)
-            }
-            }
-            checkTeamMembership();
-          "
+                  }
+                  checkTeamMembership();
       - name: Pull request
         if: ${{ needs.check_team.outputs.stop_workflow != 'true' }}
         uses: actions-cool/maintain-one-comment@v3
