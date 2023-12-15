@@ -33,8 +33,10 @@ jobs:
                 -   修复错误：fix: xxxx
                 -   日常维护：chore: xxx
                 ### 3. 其它补充
+                
                 新增题解及代码时，需要创建 Solution.xxx 源代码文件（如果已存在，请确认算法是否更优，是则覆盖已有算法代码），同时，需要在 README.md 以及 README_EN.md 中添加对应的代码片段（英文文件中不要出现中文注释）
                 另外，编码风格（比如变量、函数的命名），尽量跟项目已有代码保持一致。 
+
                 ---
                 🤭 Thank you for your contribution. Please check if your changes comply with the following project specifications. 
                 ### 1. Formatting
