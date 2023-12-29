@@ -83,6 +83,9 @@ jobs:
             "/repos/${OWNER}/${REPO}/labels/${LABEL_NAME}" \
             -t "${GH_TOKEN}" 2>&1)
 
+          echo "API Response:"
+          echo "$response"
+
           if [[ "$response" != *"Not Found"* ]]; then
             echo "Deleting label..."
             gh api \
