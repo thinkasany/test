@@ -1,7 +1,7 @@
 ---
-"@ant-design/web3-assets": major
-"@ant-design/web3-common": minor
-"@ant-design/web3-wagmi": minor
+"@ant-design/web3-assets": patch
+"@ant-design/web3-common": patch
+"@ant-design/web3-wagmi": patch
 "@ant-design/web3-icons": patch
 "@ant-design/web3": patch
 ---
