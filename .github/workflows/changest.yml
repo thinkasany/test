@@ -25,6 +25,10 @@ jobs:
         id: check_changeset
         env:
           ALL_CHANGED_FILES: ${{ steps.changed-files.outputs.all_changed_files }}
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+          OWNER: thinkasany
+          REPO: test
+          LABEL_NAME: major
         run: |
           files=$ALL_CHANGED_FILES
           echo "File list: $files"
@@ -36,8 +40,8 @@ jobs:
             --method POST \
             -H "Accept: application/vnd.github+json" \
             -H "X-GitHub-Api-Version: 2022-11-28" \
-            /repos/thinkasany/test/issues/ISSUE_NUMBER/labels \
-            -f "labels[]=major"
+            /repos/${OWNER}/${REPO}/issues/ISSUE_NUMBER/labels \
+            -f "labels[]=${LABEL_NAME}"
             -t "${{ secrets.GH_TOKEN }}"
           else
             echo "Not found major changes."
