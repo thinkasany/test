@@ -80,25 +80,11 @@ jobs:
           REPO: test
           LABEL_NAME: major
         run: |
-          
-          response=$(gh api \
-            --method GET \
-            -H "Accept: application/vnd.github+json" \
-            -H "X-GitHub-Api-Version: 2022-11-28" \
-            "/repos/${OWNER}/${REPO}/labels/${LABEL_NAME}" \
-            -t "${GH_TOKEN}" 2>&1)
-
-          echo "API Response:"
-          echo "$response"
-
-          if [[ "$response" != *"Not Found"* ]]; then
             echo "Deleting label..."
             gh api \
               --method DELETE \
               -H "Accept: application/vnd.github+json" \
               -H "X-GitHub-Api-Version: 2022-11-28" \
               "/repos/${OWNER}/${REPO}/labels/${LABEL_NAME}" \
-              -t "${GH_TOKEN}"
-          else
-            echo "Label does not exist, no need to delete."
-          fi
+              -t "${GH_TOKEN}" || true
+         
