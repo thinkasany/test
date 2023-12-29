@@ -74,6 +74,11 @@ jobs:
 
       - name: Delete label
         if: ${{ steps.check_changeset.outputs.comment == '' }}
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+          OWNER: thinkasany
+          REPO: test
+          LABEL_NAME: major
         run: |
           
           response=$(gh api \
@@ -97,8 +102,3 @@ jobs:
           else
             echo "Label does not exist, no need to delete."
           fi
-        env:
-          GH_TOKEN: ${{ secrets.GH_TOKEN }}
-          OWNER: thinkasany
-          REPO: test
-          LABEL_NAME: major
