@@ -12,11 +12,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Tweet
-        uses: actions/github-script@v3
-        with:
-          script: |
-            str='${{ github.event.ref }}';
-            result=$(echo "$str" | sed 's/@/@<200b>/');
-            echo "$result";
+        run: |
+          str='${{ github.event.ref }}';
+          result=$(echo "$str" | sed 's/@/@<200b>/');
+          echo "$result";
           
        
