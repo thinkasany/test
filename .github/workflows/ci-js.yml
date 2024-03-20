@@ -18,13 +18,12 @@ jobs:
         - name: Debug Release Name
           run: |
             echo "Release Name: $release_name";
-            echo "${{release_name}}"
 
         - name: Tweet
           uses: nearform-actions/github-action-notify-twitter@v1
           with:
             message: |
-              🤖 Ant Design Web3 just released ${{ steps.set_release_name.outputs.release_name }} ✨🎊✨ Check out the full release note: https://github.com/ant-design/ant-design-web3/releases/tag/${{ github.event.ref }}
+              🤖 Ant Design Web3 just released ${{ release_name }} ✨🎊✨ Check out the full release note: https://github.com/ant-design/ant-design-web3/releases/tag/${{ github.event.ref }}
             twitter-app-key: ${{ secrets.WEB3_TWITTER_API_KEY }}
             twitter-app-secret: ${{ secrets.WEB3_TWITTER_API_SECRET_KEY }}
             twitter-access-token: ${{ secrets.WEB3_TWITTER_ACCESS_TOKEN }}
