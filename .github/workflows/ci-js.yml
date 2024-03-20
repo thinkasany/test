@@ -13,8 +13,9 @@ jobs:
     steps:
       - name: Tweet
         run: |
-          str='${{ github.event.ref }}';
-          result=$(echo "$str" | sed 's/@/@/');
+          tag='${{ github.event.ref }}';
+          result=$(echo "$str" | sed 's/@/ /');
           echo "$result";
-          
+          message = '🤖 Ant Design Web3 just released \"$result\" ✨🎊✨ Check out the full release note: https://github.com/ant-design/ant-design-web3/releases/tag/${{ github.event.ref }}';
+          echo "message";          
        
