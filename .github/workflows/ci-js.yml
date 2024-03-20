@@ -15,6 +15,9 @@ jobs:
           id: set_release_name
           run: |
             release_name=$(echo "${{ github.event.ref }}" | sed 's/@/*/')
+        - name: Debug Release Name
+          run: |
+            echo "Release Name: $release_name"
 
         - name: Tweet
           uses: nearform-actions/github-action-notify-twitter@v1
