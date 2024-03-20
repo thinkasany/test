@@ -14,7 +14,7 @@ jobs:
         - name: Set Release Name
           id: set_release_name
           run: |
-            echo "::set-output name=release_name::$(echo "${{ github.event.ref }}" | sed 's/@/*/')"
+            echo "::set-output name=release_name::$(echo "${{ github.event.ref }}" | sed 's/@/@​/')"
         - name: Debug Release Name
           run: |
             echo "Release Name: $release_name";
