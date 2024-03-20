@@ -1,0 +1,21 @@
+name: 🐦 Release to Tweet
+
+on:
+  create
+
+permissions:
+  contents: read
+
+jobs:
+  tweet:
+    if: ${{ github.event.ref_type == 'tag' && !contains(github.event.ref, 'alpha') }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Tweet
+        uses: actions/github-script@v3
+        with:
+          script: |
+            const tag = '${{ github.event.ref }}';
+            console.log('tag', tag);
+          
+       
