@@ -12,10 +12,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Tweet
-        run: |
-          tag='${{ github.event.ref }}';
-          result=$(echo "$str" | sed 's/@/ /');
-          echo "$result";
-          message = '🤖 Ant Design Web3 just released \"$result\" ✨🎊✨ Check out the full release note: https://github.com/ant-design/ant-design-web3/releases/tag/${{ github.event.ref }}';
-          echo "message";          
-       
+        uses: nearform-actions/github-action-notify-twitter@v1
+        with:
+          message: |
+            result=$(echo "$str" | sed 's/@/ /')
+            message="🤖 Ant Design Web3 just released $result ✨🎊✨ Check out the full release note: https://github.com/ant-design/ant-design-web3/releases/tag/$result"
+            echo "$message"
+          twitter-app-key: ${{ secrets.WEB3_TWITTER_API_KEY }}
+          twitter-app-secret: ${{ secrets.WEB3_TWITTER_API_SECRET_KEY }}
+          twitter-access-token: ${{ secrets.WEB3_TWITTER_ACCESS_TOKEN }}
+          twitter-access-token-secret: ${{ secrets.WEB3_TWITTER_ACCESS_TOKEN_SECRET }}
