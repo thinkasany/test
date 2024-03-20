@@ -18,7 +18,7 @@ jobs:
         - name: Debug Release Name
           run: |
             echo "Release Name: $release_name";
-            echo ${{release_name}}
+            echo "${{release_name}}"
 
         - name: Tweet
           uses: nearform-actions/github-action-notify-twitter@v1
