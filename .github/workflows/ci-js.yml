@@ -17,5 +17,9 @@ jobs:
           script: |
             const tag = '${{ github.event.ref }}';
             console.log('tag', tag);
+
+            str='${{ github.event.ref }}'
+            result=$(echo "$str" | sed 's/@/@<200b>/')
+            echo "$result"
           
        
