@@ -26,9 +26,9 @@ jobs:
           trigger: 'tag'
           branch: 'master'
           dingding-token: ${{ secrets.WEB3_DINGDING_BOT_TOKEN }} 
-          msg-title: '# Ant Design {{v}} 发布日志'
+          msg-title: '#{{v}} 发布日志'
           msg-poster: 'https://gw.alipayobjects.com/mdn/rms_08e378/afts/img/A*zx7LTI_ECSAAAAAAAAAAAABkARQnAQ'
-          msg-footer: '💬 前往 [**Ant Design Web3 Releases**]({{url}}) 查看更新日志'
+          msg-footer: '💬 前往 [**Ant Design Web3 Releases**]({{url}}) 查看更新日志 \n\n  twitter: https://twitter.com/AntDesignWeb3'
           prettier: true
           prerelease-notice: true
           prerelease-filter: '-, a, b, A, B'
