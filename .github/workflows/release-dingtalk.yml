@@ -15,7 +15,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Send to Ant Design Web3 DingGroup
-        uses: actions-cool/release-helper@v2
+        uses: thinkasany/release-helper@dev
         with:
           trigger: 'tag'
           branch: 'master'
