@@ -19,7 +19,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Output Issue Number
-        run: echo ${{ github.event.issue.number }}
+        run: echo ${{ github.event.pull_request.number }}
 
       - name: label name
         run: echo ${{ github.event.label.name }}
@@ -30,7 +30,7 @@ jobs:
         with:
           actions: "create-comment"
           token: ${{ secrets.GH_TOKEN }}
-          issue-number: ${{ github.event.issue.number }}
+          issue-number: ${{ github.event.pull_request.number }}
           body: |
             You can run the pnpm changeset command locally to generate a changelog. Please refer to the operation precautions. https://github.com/changesets/changesets/blob/main/docs/adding-a-changeset.md
 
