@@ -1,0 +1,29 @@
+# Origin Source
+# https://github.com/ant-design/ant-design/blob/79f566b7f8abb1012ef55b0d2793bfdf5595b85d/.github/workflows/issue-reply.yml
+name: Issue Labeled
+
+on:
+  issues:
+    types: [labeled]
+
+permissions:
+  contents: read
+
+jobs:
+  issue-labeled:
+    permissions:
+      issues: write  # for actions-cool/issues-helper to update issues
+      pull-requests: write  # for actions-cool/issues-helper to update PRs
+    runs-on: ubuntu-latest
+    steps:
+      - name: Need Changelog
+        if: github.event.label.name == 'Need Changelog'
+        uses: actions-cool/issues-helper@v3
+        with:
+          actions: "create-comment"
+          token: ${{ secrets.GITHUB_TOKEN }}
+          issue-number: ${{ github.event.issue.number }}
+          body: |
+            You can run the pnpm changeset command locally to generate a changelog. Please refer to the operation precautions. https://github.com/changesets/changesets/blob/main/docs/adding-a-changeset.md
+
+            可以在本地运行 pnpm changeset 命令生成 changelog, 操作注意事项参考：https://github.com/changesets/changesets/blob/main/docs/adding-a-changeset.md
