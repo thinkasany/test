@@ -16,6 +16,12 @@ jobs:
       pull-requests: write  # for actions-cool/issues-helper to update PRs
     runs-on: ubuntu-latest
     steps:
+      - name: Output Issue Number
+        run: echo ${{ github.event.issue.number }}
+
+      - name: label name
+        run: echo ${{ github.event.label.name }}
+
       - name: Need Changelog
         if: github.event.label.name == 'Need Changelog'
         uses: actions-cool/issues-helper@v3
