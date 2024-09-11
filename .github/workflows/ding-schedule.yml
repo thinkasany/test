@@ -21,11 +21,17 @@ jobs:
             const data = await response.json()
             const issueList = [];
             for (const item of data.items) {
-                const { created_at, html_url, pull_request, state, title } = item;
+                const { created_at, html_url, pull_request, state, title, labels } = item;
                 const createdAt = new Date(created_at);
                 const now = new Date();
                 const diffTime = Math.abs(now - createdAt);
                 const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)); 
+
+                const isUnconfirmed = labels.some(label => label.name === 'unconfirmed');
+        
+                if (!isUnconfirmed) {
+                    continue;
+                }
 
                 if (diffDays > 7) {
                     break;
