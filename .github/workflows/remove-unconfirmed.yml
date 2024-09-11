@@ -82,16 +82,11 @@ jobs:
 
             你好 @${{ github.event.issue.user.login }}，为了能够进行高效沟通，我们对 issue 有一定的格式要求，你的 issue 因为不符合要求而被自动关闭。你可以通过 [issue 助手](http://new-issue.ant.design) 来创建 issue 以方便我们定位错误。谢谢配合！
 
-  remove-unconfirmed-label:
-    permissions:
-      issues: write  # for actions-cool/issues-helper to update issues
-      pull-requests: write  # for actions-cool/issues-helper to update PRs
-    runs-on: ubuntu-latest
-    steps:
       - name: remove unconfirmed label
         if: github.event.label.name != 'unconfirmed'
         uses: actions-cool/issues-helper@v3
         with:
-          actions: 'remove-labels'
-          issue-number: ${{ github.event.issue.number }}
-          labels: 'unconfirmed'
+            actions: 'remove-labels'
+            issue-number: ${{ github.event.issue.number }}
+            labels: 'unconfirmed'
+    
