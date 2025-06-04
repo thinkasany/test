@@ -15,7 +15,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: verify-version
-        uses: thinkasany/verify-files-modify@refs/heads/count
+        uses: thinkasany/verify-files-modify@main
         with:
           forbid-paths: '.github/, scripts/'
           forbid-files: 'CHANGELOG.zh-CN.md, CHANGELOG.en-US.md, LICENSE, README.md'
