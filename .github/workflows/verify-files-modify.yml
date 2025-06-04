@@ -17,6 +17,7 @@ jobs:
       - name: verify-version
         uses: thinkasany/verify-files-modify@main
         with:
+          token: ${{ secrets.TEST_TOKEN }}
           forbid-paths: '.github/, scripts/'
           forbid-files: 'CHANGELOG.zh-CN.md, CHANGELOG.en-US.md, LICENSE, README.md'
           skip-count: 5
